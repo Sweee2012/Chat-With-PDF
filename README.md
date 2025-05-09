@@ -1,44 +1,48 @@
-# Chat-With-PDF
+# Chat With PDF
 An interactive Streamlit application that allows users to upload PDF documents and engage in a conversational Q&A with the content using Google's Gemini 2.0 flash. The app features an intuitive interface with custom styling for an enhanced user experience.
 
-✨ Features
-**PDF Upload & Parsing:** Upload any PDF document and extract its textual content seamlessly.
+#**✨ Features**
 
-**Conversational Q&A:** Ask questions related to the uploaded PDF and receive context-aware answers powered by Google's Gemini 1.5 Pro model.
+📍**PDF Upload & Parsing:** Upload any PDF document and extract its textual content seamlessly.
 
-**Custom Styling:** Enjoy a visually appealing interface with custom backgrounds and modern design elements.
+📍**Conversational Q&A:** Ask questions related to the uploaded PDF and receive context-aware answers powered by Google's Gemini 1.5 Pro model.
 
-**Efficient Text Chunking:** Utilizes recursive character text splitting for optimal processing.
+📍**Custom Styling:** Enjoy a visually appealing interface with custom backgrounds and modern design elements.
 
-**Vector Store Integration:** Employs FAISS for efficient similarity search and retrieval.
+📍**Efficient Text Chunking:** Utilizes recursive character text splitting for optimal processing.
+
+📍**Vector Store Integration:** Employs FAISS for efficient similarity search and retrieval.
 
 #🚀 Getting Started
 
-**Prerequisites**
+#**Prerequisites**
+
 Ensure you have the following installed:
 
->> Python 3.8 or higher
+📌 Python 3.8 or higher
 
->> pip package manager
+📌 pip package manager
 
-**🛠️ Built With**
->> Streamlit - Web application framework
+#**🛠️ Built With**
 
->> PyPDF2 - PDF text extraction
+⚙️ Streamlit - Web application framework
 
->> Langchain - Language model integration
+⚙️ PyPDF2 - PDF text extraction
 
->> FAISS - Vector similarity search
+⚙️ Langchain - Language model integration
 
->> HuggingFace Embeddings - Text embeddings
+⚙️ FAISS - Vector similarity search
 
->> Google Generative AI - Conversational AI model
+🤗 HuggingFace Embeddings - Text embeddings
 
-**📚 Usage**
->> Launch the application using Streamlit.
+⚙️ Google Generative AI - Conversational AI model
 
->> Upload a PDF document via the provided uploader.
+#**📚 Usage**
 
->> Once processed, enter your questions in the input field.
+🔅 Launch the application using Streamlit.
 
->> Receive answers generated based on the PDF content.
+🔅 Upload a PDF document via the provided uploader.
+
+🔅 Once processed, enter your questions in the input field.
+
+🔅 Receive answers generated based on the PDF content.
