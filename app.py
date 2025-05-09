@@ -1,63 +1,59 @@
 import streamlit as st
+from PyPDF2 import PdfReader
+from io import BytesIO
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.vectorstores import FAISS
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.prompts import ChatPromptTemplate
+from langchain.chains import LLMChain
 
-# Set page configuration at the very beginning
-st.set_page_config(
-    page_title="Chat with PDF 📄",
-    page_icon="📄",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+# Set page configuration
+st.set_page_config(page_title="Chat with PDF 📄", page_icon="📄", layout="wide")
 
 # Inject custom CSS for styling
 st.markdown(
     """
     <style>
-    /* Custom header styling */
-    .main .block-container {
-        padding-top: 2rem;
+    /* Full-screen background */
+    .stApp {
+        background-image: url('https://your-image-url.com/background.jpg');
+        background-size: cover;
+        background-position: center;
     }
-    h1 {
-        color: #4B8BBE;
-        font-size: 2.5em;
+    /* Sidebar styling */
+    [data-testid="stSidebar"] > div:first-child {
+        background-image: url('https://your-image-url.com/sidebar-background.jpg');
+        background-size: cover;
+        background-position: center;
     }
     /* Button styling */
     .stButton > button {
-        background-color: #4CAF50;
+        background-color: #FF4B4B;
         color: white;
-        border-radius: 8px;
+        border-radius: 12px;
         padding: 10px 24px;
         font-size: 16px;
     }
-    /* Sidebar styling */
-    .css-1d391kg {
-        background-color: #f0f2f6;
-        padding: 20px;
+    /* Header styling */
+    h1 {
+        color: #FF4B4B;
+        font-size: 2.5em;
+        text-align: center;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-import langchain_google_genai
-from PyPDF2 import PdfReader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from sentence_transformers import SentenceTransformer
-from langchain.vectorstores import FAISS
-from langchain.embeddings import SentenceTransformerEmbeddings
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.prompts import PromptTemplate
-from langchain.chains.question_answering import load_qa_chain
-
 # Set your Google API key
 api_key = "AIzaSyADbJYco4ivwQgFOFb_H6PjQDon9jmNC_M"  # Replace with your actual API key
 
-def get_pdf_text(pdf_docs):
+def get_pdf_text(uploaded_file):
     text = ""
-    for pdf in pdf_docs:
-        pdf_reader = PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text += page.extract_text()
+    reader = PdfReader(uploaded_file)
+    for page in reader.pages:
+        text += page.extract_text()
     return text
 
 def get_text_chunks(text):
@@ -75,48 +71,33 @@ def get_vector_store(text_chunks):
 
 def get_conversation_chain():
     prompt_template = """
-    Answer the question as detailed as possible from the provided context. Make sure to provide all the details. If the answer is not in the provided context, just say "Answer is not available in the context." Don't provide the wrong answer.
-    Context: \n{context}?\n
-    Question:\n{question}\n
-    Answer:
+    Answer the following question based on the provided context:
+
+    {context}
+
+    Question: {question}
     """
-    model = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash",
-        temperature=0.3,
-        google_api_key=api_key
-    )
-    prompt = PromptTemplate(
-        template=prompt_template,
-        input_variables=["context", "question"]
-    )
-    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
+    prompt = ChatPromptTemplate.from_messages([("system", prompt_template)])
+    llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", google_api_key=api_key)
+    chain = LLMChain(prompt=prompt, llm=llm)
     return chain
 
-def user_input(user_question):
-    embedding_model = HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2')
-    new_db = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
-    docs = new_db.similarity_search(user_question)
-    chain = get_conversation_chain()
-    response = chain.invoke(
-        {"input_documents": docs, "question": user_question},
-        return_only_outputs=True
-    )
-    st.write("🤖 **Reply:**", response["output_text"])
-
 def main():
-    st.header("📄 Chat With PDF ")
-    user_question = st.text_input("❓ Ask a question from the PDF file")
-    if user_question:
-        user_input(user_question)
-    with st.sidebar:
-        st.title("📁 Menu:")
-        pdf_docs = st.file_uploader("📤Upload your PDF file(s) here and click on the 'Submit & Process' button.", accept_multiple_files=True)
-        if st.button("✅ Submit & Process"):
-            with st.spinner("⏳ Processing..."):
-                raw_text = get_pdf_text(pdf_docs)
-                text_chunks = get_text_chunks(raw_text)
-                get_vector_store(text_chunks)
-                st.success("✅ Done")
+    st.title("Chat with Your PDF 📄")
+
+    uploaded_file = st.file_uploader("Upload your PDF", type="pdf")
+    if uploaded_file is not None:
+        text = get_pdf_text(uploaded_file)
+        text_chunks = get_text_chunks(text)
+        get_vector_store(text_chunks)
+
+        st.success("PDF processed successfully! You can now ask questions.")
+
+        user_question = st.text_input("Ask a question about the PDF:")
+        if user_question:
+            chain = get_conversation_chain()
+            response = chain.invoke({"context": text, "question": user_question})
+            st.write("Answer:", response)
 
 if __name__ == "__main__":
     main()
