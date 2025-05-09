@@ -13,7 +13,7 @@ An interactive Streamlit application that allows users to upload PDF documents a
 
 📍**Vector Store Integration:** Employs FAISS for efficient similarity search and retrieval.
 
-# Getting Started 📊
+# Getting Started📊
 
 **Prerequisites**
 
@@ -25,17 +25,17 @@ Ensure you have the following installed:
 
 # Built With🛠️
 
-⚙️ Streamlit - Web application framework
+⚙️ **Streamlit** - Web application framework
 
-⚙️ PyPDF2 - PDF text extraction
+⚙️ **PyPDF2** - PDF text extraction
 
-⚙️ Langchain - Language model integration
+⚙️ **Langchain** - Language model integration
 
-⚙️ FAISS - Vector similarity search
+⚙️ **FAISS** - Vector similarity search
 
-🤗 HuggingFace Embeddings - Text embeddings
+🤗 **HuggingFace Embeddings** - Text embeddings
 
-⚙️ Google Generative AI - Conversational AI model
+⚙️ **Google Generative AI** - Conversational AI model
 
 # Usage📚 
 
