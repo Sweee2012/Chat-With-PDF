@@ -5,7 +5,7 @@ An interactive Streamlit application that allows users to upload PDF documents a
 
 📍**PDF Upload & Parsing:** Upload any PDF document and extract its textual content seamlessly.
 
-📍**Conversational Q&A:** Ask questions related to the uploaded PDF and receive context-aware answers powered by Google's Gemini 1.5 Pro model.
+📍**Conversational Q&A:** Ask questions related to the uploaded PDF and receive context-aware answers powered by Google's Gemini 2.0 flash.
 
 📍**Custom Styling:** Enjoy a visually appealing interface with custom backgrounds and modern design elements.
 
