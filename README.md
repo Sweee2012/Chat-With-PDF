@@ -1,7 +1,7 @@
 # Chat With PDF
 An interactive Streamlit application that allows users to upload PDF documents and engage in a conversational Q&A with the content using Google's Gemini 2.0 flash. The app features an intuitive interface with custom styling for an enhanced user experience.
 
-#Features ✨
+# Features✨
 
 📍**PDF Upload & Parsing:** Upload any PDF document and extract its textual content seamlessly.
 
@@ -13,7 +13,7 @@ An interactive Streamlit application that allows users to upload PDF documents a
 
 📍**Vector Store Integration:** Employs FAISS for efficient similarity search and retrieval.
 
-#🚀 Getting Started
+# Getting Started 📊
 
 **Prerequisites**
 
@@ -23,7 +23,7 @@ Ensure you have the following installed:
 
 📌 pip package manager
 
-#🛠️ Built With
+# Built With🛠️
 
 ⚙️ Streamlit - Web application framework
 
@@ -37,7 +37,7 @@ Ensure you have the following installed:
 
 ⚙️ Google Generative AI - Conversational AI model
 
-#📚 Usage
+# Usage📚 
 
 🔅 Launch the application using Streamlit.
 
