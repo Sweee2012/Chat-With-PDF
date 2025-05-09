@@ -11,40 +11,6 @@ from langchain.chains import LLMChain
 # Set page configuration
 st.set_page_config(page_title="Chat with PDF 📄", page_icon="📄", layout="wide")
 
-# Inject custom CSS for styling
-st.markdown(
-    """
-    <style>
-    /* Full-screen background */
-    .stApp {
-        background-image: url('https://your-image-url.com/background.jpg');
-        background-size: cover;
-        background-position: center;
-    }
-    /* Sidebar styling */
-    [data-testid="stSidebar"] > div:first-child {
-        background-image: url('https://your-image-url.com/sidebar-background.jpg');
-        background-size: cover;
-        background-position: center;
-    }
-    /* Button styling */
-    .stButton > button {
-        background-color: #FF4B4B;
-        color: white;
-        border-radius: 12px;
-        padding: 10px 24px;
-        font-size: 16px;
-    }
-    /* Header styling */
-    h1 {
-        color: #FF4B4B;
-        font-size: 2.5em;
-        text-align: center;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 # Set your Google API key
 api_key = "AIzaSyADbJYco4ivwQgFOFb_H6PjQDon9jmNC_M"  # Replace with your actual API key
